@@ -1,0 +1,2872 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Petit Carnet ♡</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Gaegu:wght@400;700&family=Jua&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --purple:#9784dc;
+  --purple-dark:#7663bd;
+  --purple-light:#f0ebff;
+  --blue:#8bb9ed;
+  --blue-light:#eaf4ff;
+  --pink:#f3aeca;
+  --pink-light:#fff0f6;
+  --mint:#9bd8c8;
+  --yellow:#ffe3a3;
+  --bg:#f9f8ff;
+  --white:#ffffff;
+  --text:#45415e;
+  --muted:#a5a0b9;
+  --line:#efecf7;
+  --shadow:0 8px 30px rgba(112,99,158,.07);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans','Jua',sans-serif;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible,
+textarea:focus-visible,select:focus-visible{
+  outline:3px solid #c8b9ff;
+  outline-offset:2px;
+}
+
+/* LAYOUT */
+.app{
+  display:grid;
+  grid-template-columns:240px minmax(0,1fr);
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  position:sticky;
+  top:0;
+  height:100vh;
+  padding:30px 18px;
+  background:white;
+  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+.logo{
+  padding:8px 12px 35px;
+  font-family:'Gaegu',cursive;
+  font-size:29px;
+  font-weight:700;
+  color:var(--purple-dark);
+  line-height:1.1;
+}
+.logo span{
+  display:block;
+  margin-top:8px;
+  font-family:'Quicksand',sans-serif;
+  font-size:9px;
+  letter-spacing:2px;
+  color:var(--muted);
+}
+.menu-title{
+  padding:0 14px;
+  margin-bottom:12px;
+  color:#b2aec5;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.menu button{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:13px 15px;
+  border:0;
+  border-radius:12px;
+  background:transparent;
+  color:#8d8ba5;
+  text-align:left;
+  font-family:'Quicksand','Jua',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  transition:.2s;
+}
+.menu button:hover,.menu button.active{
+  background:var(--purple-light);
+  color:var(--purple-dark);
+}
+.menu-icon{font-size:18px}
+
+/* PETIT BONHEUR - 홈에서만 표시 */
+.sidebar-bottom{
+  margin-top:auto;
+  padding-top:25px;
+}
+.sidebar-bottom.hidden{display:none}
+
+.quote-card{
+  position:relative;
+  padding:19px 15px 15px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#f1eaff,#eaf4ff);
+  border:1px solid #e9e1fa;
+  overflow:hidden;
+}
+.quote-card::before{
+  content:"✦";
+  position:absolute;
+  right:13px;
+  top:8px;
+  font-size:29px;
+  color:rgba(151,132,220,.18);
+}
+.quote-title{
+  font-family:'Gaegu',cursive;
+  font-size:24px;
+  font-weight:700;
+  color:var(--purple-dark);
+}
+.quote-label{
+  margin-top:12px;
+  font-size:10px;
+  color:#a19ab8;
+  font-weight:700;
+}
+.quote-text{
+  margin:13px 0 10px;
+  font-family:'Gaegu',cursive;
+  font-size:20px;
+  font-weight:700;
+  line-height:1.45;
+  color:#655785;
+  overflow-wrap:anywhere;
+}
+.quote-author{
+  font-size:10px;
+  line-height:1.7;
+  color:#82769e;
+  text-align:right;
+  font-weight:700;
+}
+.quote-work{
+  display:block;
+  margin-top:3px;
+  font-weight:500;
+  color:#a19ab8;
+}
+.quote-french{
+  margin-top:13px;
+  padding-top:12px;
+  border-top:1px dashed #dcd2f2;
+  font-family:'Gaegu',cursive;
+  font-size:17px;
+  color:#8b79c4;
+  text-align:center;
+}
+.quote-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:6px;
+  margin-top:12px;
+}
+.quote-date{
+  font-size:9px;
+  color:#aaa3bd;
+}
+.quote-buttons{display:flex;gap:5px}
+.quote-btn{
+  display:grid;
+  place-items:center;
+  width:29px;
+  height:29px;
+  border:0;
+  border-radius:9px;
+  background:rgba(255,255,255,.75);
+  color:var(--purple-dark);
+  font-size:15px;
+  transition:.2s;
+}
+.quote-btn:hover{background:white;transform:scale(1.07)}
+.quote-btn.liked{color:#ed8caf;background:#fff0f6}
+.quote-saved-link{
+  display:block;
+  width:100%;
+  margin-top:12px;
+  padding:8px;
+  border:0;
+  border-radius:9px;
+  background:rgba(255,255,255,.55);
+  color:#8d80b1;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* MAIN */
+.main{
+  width:100%;
+  min-width:0;
+  max-width:1500px;
+  margin:auto;
+  padding:36px 40px 80px;
+}
+.page{display:none;animation:fadeIn .25s ease}
+.page.active{display:block}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:28px;
+}
+.top-date{font-size:12px;font-weight:700;color:var(--muted)}
+.top-actions{display:flex;align-items:center;gap:10px}
+.avatar{
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#e8ddff;
+  font-size:20px;
+}
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:11px 16px;
+  font-size:12px;
+  font-weight:700;
+  transition:.2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{
+  background:var(--purple);
+  color:white;
+  box-shadow:0 5px 14px rgba(146,120,223,.18);
+}
+.btn-light{background:#f2efff;color:var(--purple-dark)}
+.btn-white{background:white;color:var(--purple-dark)}
+.btn-danger{background:#fff0f3;color:#e47d99}
+
+/* HERO */
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:30px 35px;
+  border-radius:23px;
+  background:linear-gradient(115deg,#a18ae8,#89b9ee);
+  color:white;
+  margin-bottom:25px;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  right:-60px;
+  top:-110px;
+  background:rgba(255,255,255,.13);
+}
+.hero::after{
+  content:"✦";
+  position:absolute;
+  right:65px;
+  bottom:20px;
+  color:rgba(255,255,255,.3);
+  font-size:75px;
+}
+.hero-small{
+  font-family:'Quicksand',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  opacity:.8;
+}
+.hero h1{
+  position:relative;
+  z-index:1;
+  margin:10px 0;
+  font-family:'Gaegu',cursive;
+  font-size:clamp(29px,4vw,43px);
+}
+.hero p{
+  position:relative;
+  z-index:1;
+  margin:0;
+  font-family:'Jua',sans-serif;
+  font-size:13px;
+  opacity:.9;
+}
+
+/* COMMON */
+.section{margin-bottom:26px}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
+.section-title{
+  font-family:'Gaegu',cursive;
+  font-size:25px;
+  font-weight:700;
+}
+.section-sub{
+  margin-top:4px;
+  font-family:'Jua',sans-serif;
+  font-size:11px;
+  color:var(--muted);
+}
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+.page-header{margin-bottom:28px}
+.page-header h1{
+  margin:0;
+  font-family:'Gaegu',cursive;
+  font-size:39px;
+  color:var(--purple-dark);
+}
+.page-header p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:20px;
+  align-items:start;
+}
+.right-column{min-width:0}
+
+/* TODAY */
+.today-card{
+  padding:22px;
+  margin-bottom:25px;
+  border:1px solid #e9e1ff;
+  border-radius:20px;
+  background:linear-gradient(135deg,#f3eeff,#eef6ff);
+}
+.today-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
+.today-title{
+  font-family:'Gaegu',cursive;
+  font-size:27px;
+  font-weight:700;
+  color:var(--purple-dark);
+}
+.today-progress{
+  font-size:11px;
+  font-weight:700;
+  color:var(--purple-dark);
+}
+.progress-bar{
+  height:8px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#e5def8;
+  margin-bottom:15px;
+}
+.progress-fill{
+  height:100%;
+  width:0;
+  border-radius:20px;
+  background:linear-gradient(90deg,#a78be8,#8bb9ed);
+  transition:width .3s;
+}
+.today-item{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:11px 13px;
+  margin-top:7px;
+  border-radius:11px;
+  background:rgba(255,255,255,.8);
+}
+.today-item span{flex:1;font-size:12px}
+.today-item.done span{
+  text-decoration:line-through;
+  color:var(--muted);
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:28px;
+}
+.stat{
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:white;
+  box-shadow:var(--shadow);
+}
+.stat-icon{
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:var(--purple-light);
+  font-size:19px;
+  margin-bottom:13px;
+}
+.stat:nth-child(2) .stat-icon{background:var(--blue-light)}
+.stat:nth-child(3) .stat-icon{background:var(--pink-light)}
+.stat:nth-child(4) .stat-icon{background:#e9f8f4}
+.stat-label{font-size:11px;color:var(--muted);font-weight:700}
+.stat-value{margin-top:5px;font-size:25px;font-weight:800}
+
+/* CALENDAR */
+.calendar{padding:23px}
+.calendar-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:23px;
+}
+.calendar-month{
+  font-family:'Gaegu',cursive;
+  font-size:29px;
+  font-weight:700;
+}
+.calendar-nav{display:flex;gap:7px}
+.calendar-nav button{
+  min-width:32px;
+  height:32px;
+  padding:0 9px;
+  border:0;
+  border-radius:9px;
+  background:#f3f0ff;
+  color:var(--purple);
+  font-weight:800;
+}
+.weekdays,.calendar-days{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:5px;
+}
+.weekday{
+  text-align:center;
+  padding:10px 0;
+  font-size:11px;
+  color:var(--muted);
+  font-weight:700;
+}
+.weekday:first-child{color:#e99bab}
+.weekday:last-child{color:#8cb4e8}
+.day{
+  position:relative;
+  min-height:88px;
+  padding:8px 5px;
+  border:1px solid transparent;
+  border-radius:10px;
+  background:transparent;
+  text-align:left;
+  color:var(--text);
+  transition:.2s;
+  overflow:hidden;
+}
+.day:hover{background:#f7f4ff}
+.day.other{color:#d2cfdf}
+.day.today{background:#f4efff}
+.day.selected{
+  background:#eee8ff;
+  border-color:#c5b4f7;
+}
+.day-number{font-size:12px;font-weight:800}
+.day.today .day-number{color:var(--purple-dark)}
+.day-events{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  margin-top:6px;
+}
+.day-event{
+  display:block;
+  width:100%;
+  padding:3px 4px;
+  border-radius:5px;
+  font-family:'Jua',sans-serif;
+  font-size:9px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  line-height:1.4;
+}
+.day-more{font-size:9px;color:var(--muted)}
+.calendar.large .day{min-height:115px}
+.calendar.large .day-event{font-size:11px;padding:4px 5px}
+.calendar-bottom{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  padding-top:18px;
+  margin-top:15px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:10px;
+}
+
+/* SELECTED DAY */
+.selected-card{margin-top:16px;padding:20px}
+.selected-date{
+  color:var(--purple-dark);
+  font-size:14px;
+  font-weight:800;
+}
+.selected-list{margin-top:14px}
+.selected-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 0;
+  border-bottom:1px solid #f2eff8;
+}
+.selected-item:last-child{border:0}
+.selected-item-info{flex:1;min-width:0}
+.selected-item-title{
+  font-size:12px;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+.selected-item-time{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+}
+.tag{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:7px;
+  font-size:9px;
+  font-weight:700;
+}
+
+/* TODO */
+.todo-card{padding:20px}
+.todo-input-row{
+  display:flex;
+  gap:8px;
+  margin-bottom:12px;
+}
+.todo-input-row input{flex:1;min-width:0}
+input,textarea,select{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #e7e3f2;
+  border-radius:10px;
+  background:#fcfbff;
+  color:var(--text);
+  outline:none;
+  font-size:12px;
+}
+input:focus,textarea:focus,select:focus{border-color:#b8a5f2}
+.todo-filters{display:flex;gap:7px;margin-bottom:14px}
+.filter{
+  padding:7px 11px;
+  border:0;
+  border-radius:8px;
+  background:#f6f4fb;
+  color:#aaa5ba;
+  font-size:10px;
+  font-weight:700;
+}
+.filter.active{
+  background:var(--purple-light);
+  color:var(--purple-dark);
+}
+.todo-item{
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  padding:13px 0;
+  border-bottom:1px solid #f2eff8;
+}
+.todo-item:last-child{border:0}
+.check{
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  width:21px;
+  height:21px;
+  border:2px solid #d7c9f6;
+  border-radius:7px;
+  background:white;
+  color:white;
+  font-size:12px;
+  font-weight:800;
+}
+.check.done{background:var(--purple);border-color:var(--purple)}
+.todo-content{flex:1;min-width:0}
+.todo-text{
+  font-size:12px;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+.todo-text.done{
+  text-decoration:line-through;
+  color:#b8b4c6;
+}
+.todo-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:6px;
+  font-size:10px;
+  color:var(--muted);
+}
+.icon-button{
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  width:26px;
+  height:26px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  color:#aaa5ba;
+}
+.icon-button:hover{background:#f2efff;color:var(--purple)}
+
+/* UPCOMING */
+.upcoming-card{padding:18px}
+.upcoming-item{
+  display:flex;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid #f2eff8;
+}
+.upcoming-item:last-child{border:0}
+.upcoming-date{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  flex-shrink:0;
+  width:48px;
+  height:52px;
+  border-radius:11px;
+  background:#f0eaff;
+  color:var(--purple);
+}
+.upcoming-date strong{font-size:17px}
+.upcoming-date span{font-size:9px;font-weight:700}
+.upcoming-info{flex:1;min-width:0}
+.upcoming-name{
+  font-size:12px;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+.upcoming-time{
+  margin-top:5px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+/* MEMO */
+.memo-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+}
+.memo-card{
+  position:relative;
+  min-height:190px;
+  padding:20px;
+  border-radius:17px;
+  background:#f0eaff;
+  cursor:pointer;
+  transition:.2s;
+}
+.memo-card:hover{transform:translateY(-3px)}
+.memo-card.blue{background:#e9f3ff}
+.memo-card.pink{background:#fff0f6}
+.memo-card.yellow{background:#fff6df}
+.memo-card.mint{background:#e9f8f4}
+.memo-title{
+  padding-right:25px;
+  font-family:'Gaegu',cursive;
+  font-size:23px;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+.memo-text{
+  margin-top:12px;
+  font-size:11px;
+  line-height:1.9;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  color:#77748d;
+}
+.memo-date{
+  position:absolute;
+  left:20px;
+  bottom:17px;
+  font-size:9px;
+  font-weight:700;
+  color:#a8a3b7;
+}
+.memo-delete{
+  position:absolute;
+  top:13px;
+  right:13px;
+  border:0;
+  background:transparent;
+  color:#aaa5ba;
+  font-size:17px;
+}
+
+/* CATEGORY */
+.category-list{display:flex;flex-direction:column;gap:9px}
+.category-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:11px;
+}
+.category-preview{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:1;
+  min-width:0;
+  padding:8px 11px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+}
+.category-preview span{overflow-wrap:anywhere}
+.category-editor{
+  display:grid;
+  grid-template-columns:75px 1fr 75px;
+  gap:8px;
+}
+.color-input{height:40px;padding:4px;cursor:pointer}
+.empty{
+  padding:25px 10px;
+  text-align:center;
+  color:#b3aec5;
+  font-size:12px;
+  line-height:1.8;
+}
+
+/* MODAL */
+.modal-bg{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  background:rgba(47,40,76,.45);
+  backdrop-filter:blur(5px);
+}
+.modal-bg.show{display:flex}
+.modal{
+  width:min(480px,100%);
+  max-height:90vh;
+  overflow-y:auto;
+  padding:25px;
+  border-radius:21px;
+  background:white;
+  box-shadow:0 20px 70px rgba(45,35,80,.2);
+}
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.modal-head h3{
+  margin:0;
+  font-family:'Gaegu',cursive;
+  font-size:27px;
+  font-weight:700;
+}
+.close{
+  border:0;
+  background:#f4f1fb;
+  border-radius:8px;
+  width:30px;
+  height:30px;
+  color:var(--muted);
+}
+.form{display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{
+  font-size:11px;
+  font-weight:700;
+  color:#8882a2;
+}
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+textarea{min-height:120px;resize:vertical;line-height:1.7}
+.checkbox-row{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:12px;
+  border-radius:10px;
+  background:#f8f5ff;
+  font-size:11px;
+  font-weight:700;
+}
+.checkbox-row input{
+  width:17px;
+  height:17px;
+  accent-color:var(--purple);
+}
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:20px;
+}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  z-index:200;
+  padding:12px 20px;
+  border-radius:12px;
+  background:#62538f;
+  color:white;
+  font-size:12px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,20px);
+  transition:.2s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* SAVED QUOTES */
+.saved-quote{
+  padding:18px;
+  margin-bottom:12px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#f5f0ff,#f0f7ff);
+  border:1px solid #eae3f8;
+}
+.saved-quote-text{
+  font-family:'Gaegu',cursive;
+  font-size:23px;
+  font-weight:700;
+  line-height:1.5;
+  color:#655785;
+}
+.saved-quote-author{
+  margin-top:10px;
+  font-size:11px;
+  line-height:1.7;
+  color:var(--muted);
+}
+.saved-quote-bottom{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:10px;
+}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .dashboard-grid{grid-template-columns:1fr}
+  .memo-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:780px){
+  .app{display:block}
+  .sidebar{
+    position:relative;
+    height:auto;
+    padding:15px;
+    overflow:visible;
+  }
+  .logo{padding:5px 5px 15px;font-size:25px}
+  .sidebar .menu-title{display:none}
+  .menu{
+    flex-direction:row;
+    overflow-x:auto;
+    gap:5px;
+  }
+  .menu button{
+    min-width:max-content;
+    width:auto;
+    padding:10px;
+    font-size:11px;
+  }
+  .menu-icon{font-size:14px}
+  .sidebar-bottom{margin-top:15px;padding-top:0}
+  .quote-card{padding:15px}
+  .quote-text{font-size:21px}
+  .main{padding:20px 15px 60px}
+  .hero{padding:27px 22px}
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+  }
+  .stat{padding:15px}
+  .calendar{padding:13px}
+  .day,.calendar.large .day{
+    min-height:70px;
+    padding:6px 3px;
+  }
+  .day-event,.calendar.large .day-event{
+    font-size:9px;
+    padding:3px;
+  }
+  .memo-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:400px){
+  .topbar{flex-wrap:wrap}
+  .day,.calendar.large .day{min-height:62px}
+  .weekday{font-size:10px}
+  .category-editor{grid-template-columns:55px 1fr 55px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+  <div class="logo">
+    ♡ Mon Petit Carnet
+    <span>MON PETIT UNIVERS</span>
+  </div>
+
+  <div class="menu-title">MON ESPACE</div>
+
+  <nav class="menu">
+    <button class="active" data-page="dashboard" onclick="showPage('dashboard')">
+      <span class="menu-icon">🏠</span> Accueil
+    </button>
+    <button data-page="calendar" onclick="showPage('calendar')">
+      <span class="menu-icon">🗓️</span> Calendrier
+    </button>
+    <button data-page="tasks" onclick="showPage('tasks')">
+      <span class="menu-icon">☑️</span> Mes tâches
+    </button>
+    <button data-page="upcoming" onclick="showPage('upcoming')">
+      <span class="menu-icon">🌷</span> À venir
+    </button>
+    <button data-page="memos" onclick="showPage('memos')">
+      <span class="menu-icon">💌</span> Mes notes
+    </button>
+  </nav>
+
+  <!-- 홈에서만 표시되는 오늘의 명언 -->
+  <div class="sidebar-bottom" id="sidebarQuote">
+    <div class="quote-card">
+      <div class="quote-title">♡ Petit Bonheur</div>
+      <div class="quote-label">📖 오늘의 작은 문장</div>
+
+      <div class="quote-text" id="quoteText"></div>
+
+      <div class="quote-author" id="quoteAuthor"></div>
+
+      <div class="quote-french" id="quoteFrench"></div>
+
+      <div class="quote-bottom">
+        <span class="quote-date" id="quoteDate"></span>
+        <div class="quote-buttons">
+          <button class="quote-btn" id="quoteLikeBtn"
+            onclick="toggleQuoteFavorite()" title="마음에 드는 문장 저장">♡</button>
+          <button class="quote-btn"
+            onclick="nextQuote()" title="다른 문장 보기">↻</button>
+        </div>
+      </div>
+
+      <button class="quote-saved-link" onclick="openSavedQuotes()">
+        ♡ 저장한 문장 보기
+      </button>
+    </div>
+  </div>
+
+</aside>
+
+<main class="main">
+
+  <div class="topbar">
+    <div class="top-date" id="todayText"></div>
+    <div class="top-actions">
+      <button class="btn btn-primary" onclick="openTaskModal()">＋ 새 할 일</button>
+      <div class="avatar">🧸</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+
+    <section class="hero">
+      <div class="hero-small">✦ MON PETIT UNIVERS</div>
+      <h1>Bonjour, 오늘도 나답게 ♡</h1>
+      <p>작은 계획들이 모여 멋진 하루가 될 거야.</p>
+    </section>
+
+    <section>
+      <div class="today-card">
+        <div class="today-top">
+          <div class="today-title">☀️ Aujourd'hui · 오늘 할 일</div>
+          <div class="today-progress" id="todayProgress">0 / 0 완료</div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="todayProgressFill"></div>
+        </div>
+        <div id="todayList"></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <div class="stat-icon">📝</div>
+        <div class="stat-label">전체 할 일</div>
+        <div class="stat-value" id="totalTasks">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">✨</div>
+        <div class="stat-label">완료한 일</div>
+        <div class="stat-value" id="completedTasks">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">🌷</div>
+        <div class="stat-label">다가오는 일정</div>
+        <div class="stat-value" id="upcomingCount">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon">💌</div>
+        <div class="stat-label">나의 메모</div>
+        <div class="stat-value" id="memoCount">0</div>
+      </div>
+    </section>
+
+    <div class="dashboard-grid">
+      <div>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">🗓️ Calendrier</div>
+              <div class="section-sub">나의 일정을 한눈에 확인해요.</div>
+            </div>
+            <button class="btn btn-light" onclick="openEventModal()">＋ 일정</button>
+          </div>
+          <div id="dashboardCalendar"></div>
+          <div id="dashboardSelected"></div>
+        </section>
+      </div>
+
+      <div class="right-column">
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">☑️ Mes tâches</div>
+              <div class="section-sub">하나씩 체크해보세요.</div>
+            </div>
+            <button class="btn btn-light" onclick="openTaskModal()">＋ 추가</button>
+          </div>
+          <div id="dashboardTasks"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">🌷 À venir</div>
+              <div class="section-sub">다가오는 일정이에요.</div>
+            </div>
+          </div>
+          <div id="dashboardUpcoming"></div>
+        </section>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-title">💌 Mes notes</div>
+          <div class="section-sub">나만의 작은 기록들</div>
+        </div>
+        <button class="btn btn-primary" onclick="openMemoModal()">＋ 새 메모</button>
+      </div>
+      <div class="memo-grid" id="dashboardMemos"></div>
+    </section>
+
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="page" id="page-calendar">
+    <div class="page-header">
+      <h1>🗓️ Calendrier</h1>
+      <p>나의 모든 일정을 한눈에 관리해요.</p>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-title">Mon calendrier ♡</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-light" onclick="openCategoryManager()">🎨 카테고리 관리</button>
+          <button class="btn btn-primary" onclick="openEventModal()">＋ 새 일정</button>
+        </div>
+      </div>
+      <div id="fullCalendar"></div>
+      <div id="fullSelected"></div>
+    </section>
+  </div>
+
+  <!-- TASKS -->
+  <div class="page" id="page-tasks">
+    <div class="page-header">
+      <h1>☑️ Mes tâches</h1>
+      <p>오늘 해야 할 일부터 천천히 완료해보세요.</p>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-title">Ma liste ♡</div>
+        <button class="btn btn-primary" onclick="openTaskModal()">＋ 새 할 일</button>
+      </div>
+      <div id="fullTasks"></div>
+    </section>
+  </div>
+
+  <!-- UPCOMING -->
+  <div class="page" id="page-upcoming">
+    <div class="page-header">
+      <h1>🌷 À venir</h1>
+      <p>앞으로 예정된 일정들을 확인해요.</p>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-title">Mes rendez-vous ♡</div>
+        <button class="btn btn-primary" onclick="openEventModal()">＋ 새 일정</button>
+      </div>
+      <div id="fullUpcoming"></div>
+    </section>
+  </div>
+
+  <!-- MEMOS -->
+  <div class="page" id="page-memos">
+    <div class="page-header">
+      <h1>💌 Mes notes</h1>
+      <p>생각과 아이디어를 자유롭게 기록해요.</p>
+    </div>
+    <section class="section">
+      <div class="section-head">
+        <div class="section-title">Mes petits mots ♡</div>
+        <button class="btn btn-primary" onclick="openMemoModal()">＋ 새 메모</button>
+      </div>
+      <div class="memo-grid" id="fullMemos"></div>
+    </section>
+  </div>
+
+</main>
+</div>
+
+<!-- TASK MODAL -->
+<div class="modal-bg" id="taskModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="taskModalTitle">☑️ 새 할 일</h3>
+      <button class="close" onclick="closeModal('taskModal')">×</button>
+    </div>
+    <div class="form">
+      <div class="field">
+        <label>할 일</label>
+        <input id="taskTitle" placeholder="무엇을 해야 하나요?">
+      </div>
+      <div class="field">
+        <label>마감 날짜 (선택)</label>
+        <input type="date" id="taskDate">
+      </div>
+      <div class="field">
+        <label>메모 (선택)</label>
+        <textarea id="taskNote" placeholder="추가로 기억할 내용"></textarea>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="taskSync">
+        📅 이 할 일을 달력에도 표시하기
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-white" onclick="closeModal('taskModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveTask()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- EVENT MODAL -->
+<div class="modal-bg" id="eventModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="eventModalTitle">🗓️ 새 일정</h3>
+      <button class="close" onclick="closeModal('eventModal')">×</button>
+    </div>
+    <div class="form">
+      <div class="field">
+        <label>일정 이름</label>
+        <input id="eventTitle" placeholder="예: 면접">
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>날짜</label>
+          <input type="date" id="eventDate">
+        </div>
+        <div class="field">
+          <label>시간 (선택)</label>
+          <input type="time" id="eventTime">
+        </div>
+      </div>
+      <div class="field">
+        <label>카테고리</label>
+        <div style="display:flex;gap:8px">
+          <select id="eventCategory"></select>
+          <button class="btn btn-light" onclick="openCategoryManager()">⚙️</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>상세 내용</label>
+        <textarea id="eventNote" placeholder="일정에 대한 메모"></textarea>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="eventSync">
+        ☑️ 이 일정을 To-do List에도 추가하기
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-white" onclick="closeModal('eventModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveEvent()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEMO MODAL -->
+<div class="modal-bg" id="memoModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="memoModalTitle">💌 새 메모</h3>
+      <button class="close" onclick="closeModal('memoModal')">×</button>
+    </div>
+    <div class="form">
+      <div class="field">
+        <label>제목</label>
+        <input id="memoTitle" placeholder="메모 제목">
+      </div>
+      <div class="field">
+        <label>내용</label>
+        <textarea id="memoText" style="min-height:200px" placeholder="자유롭게 적어보세요..."></textarea>
+      </div>
+      <div class="field">
+        <label>메모 색상</label>
+        <select id="memoColor">
+          <option value="purple">💜 라벤더</option>
+          <option value="blue">🩵 하늘색</option>
+          <option value="pink">🩷 분홍색</option>
+          <option value="yellow">💛 크림색</option>
+          <option value="mint">💚 민트색</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-white" onclick="closeModal('memoModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveMemo()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY MODAL -->
+<div class="modal-bg" id="categoryModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>🎨 카테고리 관리</h3>
+      <button class="close" onclick="closeModal('categoryModal')">×</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted);line-height:1.8">
+      나만의 카테고리를 만들어보세요.<br>
+      이모지, 이름, 색상을 자유롭게 수정할 수 있어요.
+    </p>
+    <div class="category-list" id="categoryList"></div>
+    <div style="margin-top:22px;border-top:1px solid var(--line);padding-top:20px">
+      <div class="section-title" id="categoryEditorTitle" style="font-size:21px;margin-bottom:12px">
+        ＋ 새 카테고리
+      </div>
+      <div class="category-editor">
+        <input id="categoryEmoji" placeholder="😽" maxlength="12">
+        <input id="categoryName" placeholder="카테고리 이름">
+        <input id="categoryColor" class="color-input" type="color" value="#e9ddff">
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-light" onclick="resetCategoryEditor()">초기화</button>
+        <button class="btn btn-primary" onclick="saveCategory()">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SAVED QUOTES MODAL -->
+<div class="modal-bg" id="savedQuotesModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>♡ 나의 문장 모음</h3>
+      <button class="close" onclick="closeModal('savedQuotesModal')">×</button>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:20px">
+      마음에 담아둔 문장들을 다시 읽어보세요. 🌷
+    </p>
+    <div id="savedQuotesList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+
+/* =========================================
+   1. 오늘의 문장
+   고전 작품의 짧은 구절을 한국어로 의역
+========================================= */
+
+const quotes = [
+  {
+    text:"중요한 것은 눈에 보이지 않아.",
+    author:"앙투안 드 생텍쥐페리",
+    work:"어린 왕자"
+  },
+  {
+    text:"나는 내 운명의 주인이며, 내 영혼의 선장이다.",
+    author:"윌리엄 어니스트 헨리",
+    work:"불굴(Invictus)"
+  },
+  {
+    text:"희망은 깃털 달린 존재로, 영혼에 내려앉는다.",
+    author:"에밀리 디킨슨",
+    work:"희망은 깃털 달린 것"
+  },
+  {
+    text:"마음이 즐거우면 세상도 달라 보인다.",
+    author:"루시 모드 몽고메리",
+    work:"빨간 머리 앤"
+  },
+  {
+    text:"우리의 삶은 우리가 생각하는 대로 만들어진다.",
+    author:"마르쿠스 아우렐리우스",
+    work:"명상록"
+  },
+  {
+    text:"삶은 자신을 찾는 것이 아니라 만들어가는 것이다.",
+    author:"조지 버나드 쇼",
+    work:"쇼에게 흔히 귀속되는 문장"
+  },
+  {
+    text:"행복은 우리 자신에게 달려 있다.",
+    author:"아리스토텔레스",
+    work:"아리스토텔레스에게 흔히 귀속되는 문장"
+  },
+  {
+    text:"새로운 세계를 발견하려면 익숙한 항구를 떠나야 한다.",
+    author:"앙드레 지드",
+    work:"지드에게 흔히 귀속되는 문장"
+  },
+  {
+    text:"가장 어두운 밤에도 별은 빛난다.",
+    author:"빅토르 위고",
+    work:"레 미제라블에서 영감을 받은 의역"
+  },
+  {
+    text:"내일은 아직 아무 실수도 하지 않은 새로운 날이다.",
+    author:"루시 모드 몽고메리",
+    work:"빨간 머리 앤"
+  },
+  {
+    text:"우리가 두려워해야 할 것은 두려움 그 자체이다.",
+    author:"프랭클린 D. 루스벨트",
+    work:"1933년 대통령 취임 연설"
+  },
+  {
+    text:"나는 생각한다. 그러므로 나는 존재한다.",
+    author:"르네 데카르트",
+    work:"방법서설"
+  },
+  {
+    text:"모든 것은 흐른다.",
+    author:"헤라클레이토스",
+    work:"헤라클레이토스의 철학 사상"
+  },
+  {
+    text:"행복한 삶은 마음의 평온에서 시작된다.",
+    author:"에픽테토스",
+    work:"엥케이리디온의 사상을 풀어쓴 문장"
+  },
+  {
+    text:"우리가 아는 것은 한 방울, 모르는 것은 바다와 같다.",
+    author:"아이작 뉴턴",
+    work:"뉴턴에게 흔히 귀속되는 문장"
+  },
+  {
+    text:"인생에서 중요한 것은 계속 질문하는 일이다.",
+    author:"알베르트 아인슈타인",
+    work:"아인슈타인의 발언을 바탕으로 한 의역"
+  },
+  {
+    text:"너 자신을 알라.",
+    author:"고대 그리스 격언",
+    work:"델포이 아폴론 신전의 격언"
+  },
+  {
+    text:"천 리 길도 발밑의 한 걸음에서 시작된다.",
+    author:"노자",
+    work:"도덕경 제64장"
+  },
+  {
+    text:"배우고 때때로 익히면 또한 기쁘지 아니한가.",
+    author:"공자",
+    work:"논어 · 학이편"
+  },
+  {
+    text:"아는 것을 안다고 하고 모르는 것을 모른다고 하는 것이 앎이다.",
+    author:"공자",
+    work:"논어 · 위정편"
+  },
+  {
+    text:"자신을 이기는 사람이 진정으로 강하다.",
+    author:"노자",
+    work:"도덕경 제33장"
+  },
+  {
+    text:"지나간 일은 되돌릴 수 없지만 앞으로의 일은 바꿀 수 있다.",
+    author:"도연명",
+    work:"귀거래사"
+  },
+  {
+    text:"봄이 오면 꽃은 다시 피어난다.",
+    author:"퍼시 비시 셸리",
+    work:"서풍에 부치는 노래의 결말을 의역"
+  },
+  {
+    text:"사람은 자신이 사랑하는 것에 책임이 있다.",
+    author:"앙투안 드 생텍쥐페리",
+    work:"어린 왕자"
+  },
+  {
+    text:"길은 걷는 사람이 만들어간다.",
+    author:"루쉰",
+    work:"고향"
+  },
+  {
+    text:"가장 위대한 영광은 넘어지지 않는 것이 아니라 다시 일어나는 데 있다.",
+    author:"올리버 골드스미스",
+    work:"골드스미스에게 귀속되는 격언"
+  },
+  {
+    text:"사랑하는 마음은 삶을 아름답게 만든다.",
+    author:"루이자 메이 올컷",
+    work:"작은 아씨들의 주제를 풀어쓴 문장"
+  },
+  {
+    text:"내가 원하는 삶을 향해 용감하게 나아가라.",
+    author:"헨리 데이비드 소로",
+    work:"월든"
+  },
+  {
+    text:"행복은 소유보다 마음의 태도에 가까이 있다.",
+    author:"헨리 데이비드 소로",
+    work:"월든의 사상을 풀어쓴 문장"
+  },
+  {
+    text:"인생은 짧고 예술은 길다.",
+    author:"히포크라테스",
+    work:"아포리즘"
+  },
+  {
+    text:"내가 바꿀 수 있는 것에 마음을 쓰자.",
+    author:"에픽테토스",
+    work:"엥케이리디온 제1장의 사상을 풀어쓴 문장"
+  },
+  {
+    text:"진정한 지혜는 자신의 무지를 아는 데서 시작된다.",
+    author:"플라톤",
+    work:"소크라테스의 변명에 나타난 사상을 의역"
+  },
+  {
+    text:"친구란 두 몸에 깃든 하나의 영혼과 같다.",
+    author:"아리스토텔레스",
+    work:"아리스토텔레스에게 귀속되는 격언"
+  },
+  {
+    text:"어떤 상황에서도 선한 마음을 잃지 말자.",
+    author:"마르쿠스 아우렐리우스",
+    work:"명상록의 사상을 풀어쓴 문장"
+  },
+  {
+    text:"우리가 가진 시간은 생각보다 소중하다.",
+    author:"세네카",
+    work:"인생의 짧음에 관하여"
+  },
+  {
+    text:"인생이 짧은 것이 아니라 많은 시간을 낭비하는 것이다.",
+    author:"세네카",
+    work:"인생의 짧음에 관하여"
+  },
+  {
+    text:"자신의 마음을 다스리는 일이 가장 중요하다.",
+    author:"마르쿠스 아우렐리우스",
+    work:"명상록의 사상을 풀어쓴 문장"
+  },
+  {
+    text:"배움에는 나이가 없다.",
+    author:"공자",
+    work:"논어의 배움에 관한 사상을 풀어쓴 문장"
+  },
+  {
+    text:"작은 일에도 최선을 다하는 마음이 중요하다.",
+    author:"공자",
+    work:"중용의 성실함에 관한 사상을 풀어쓴 문장"
+  },
+  {
+    text:"자신의 길을 묵묵히 걸어가라.",
+    author:"단테 알리기에리",
+    work:"단테에게 흔히 귀속되는 문장"
+  }
+];
+
+const frenchPhrases = [
+  "Un jour à la fois. 🌷",
+  "Crois en toi. ♡",
+  "La vie est belle. ✨",
+  "Petit à petit. 🌼",
+  "Courage, mon cœur. 💜",
+  "Profite du moment. ☀️",
+  "Tout ira bien. 🌸",
+  "Rêve encore. 🌙",
+  "Souris à la vie. 🩵",
+  "Chaque jour compte. 🌷"
+];
+
+const QUOTE_FAVORITES_KEY = "mon_petit_carnet_favorite_quotes_v2";
+
+let favoriteQuotes = [];
+
+try{
+  const saved = JSON.parse(localStorage.getItem(QUOTE_FAVORITES_KEY));
+  favoriteQuotes = Array.isArray(saved) ? saved : [];
+}catch(e){
+  favoriteQuotes = [];
+}
+
+let currentQuoteIndex = 0;
+let currentQuoteDay = "";
+
+function dayNumber(){
+  const now = new Date();
+  const start = new Date(now.getFullYear(),0,1);
+  const current = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  return Math.floor((current-start)/86400000);
+}
+
+function dailyQuoteIndex(){
+  const now = new Date();
+  const year = now.getFullYear();
+  const day = dayNumber();
+  return ((year*37+day*73)%quotes.length+quotes.length)%quotes.length;
+}
+
+function updateDailyQuote(force=false){
+  const date = localDate(new Date());
+
+  if(force || currentQuoteDay !== date){
+    currentQuoteDay = date;
+    currentQuoteIndex = dailyQuoteIndex();
+    renderQuote();
+  }
+}
+
+function renderQuote(){
+  const quote = quotes[currentQuoteIndex];
+
+  document.getElementById("quoteText").textContent =
+    "“"+quote.text+"”";
+
+  document.getElementById("quoteAuthor").innerHTML =
+    "— "+escapeHTML(quote.author)+
+    '<span class="quote-work">《'+escapeHTML(quote.work)+"》</span>";
+
+  document.getElementById("quoteFrench").textContent =
+    frenchPhrases[currentQuoteIndex%frenchPhrases.length];
+
+  const now = new Date();
+
+  document.getElementById("quoteDate").textContent =
+    `${now.getMonth()+1}월 ${now.getDate()}일의 문장`;
+
+  const liked = favoriteQuotes.includes(currentQuoteIndex);
+  const btn = document.getElementById("quoteLikeBtn");
+
+  btn.textContent = liked ? "♥" : "♡";
+  btn.classList.toggle("liked",liked);
+  btn.setAttribute("aria-pressed",String(liked));
+}
+
+function nextQuote(){
+  currentQuoteIndex = (currentQuoteIndex+1)%quotes.length;
+  renderQuote();
+}
+
+function toggleQuoteFavorite(){
+  const index = favoriteQuotes.indexOf(currentQuoteIndex);
+
+  if(index>=0){
+    favoriteQuotes.splice(index,1);
+    toast("저장한 문장에서 제외했어요.");
+  }else{
+    favoriteQuotes.push(currentQuoteIndex);
+    toast("마음에 드는 문장을 저장했어요! ♡");
+  }
+
+  localStorage.setItem(
+    QUOTE_FAVORITES_KEY,
+    JSON.stringify(favoriteQuotes)
+  );
+
+  renderQuote();
+}
+
+function openSavedQuotes(){
+  renderSavedQuotes();
+  showModal("savedQuotesModal");
+}
+
+function removeSavedQuote(index){
+  favoriteQuotes = favoriteQuotes.filter(x=>x!==index);
+
+  localStorage.setItem(
+    QUOTE_FAVORITES_KEY,
+    JSON.stringify(favoriteQuotes)
+  );
+
+  renderSavedQuotes();
+  renderQuote();
+}
+
+function renderSavedQuotes(){
+  const el = document.getElementById("savedQuotesList");
+
+  if(!favoriteQuotes.length){
+    el.innerHTML = `
+      <div class="empty">
+        아직 저장한 문장이 없어요.<br>
+        마음에 드는 문장을 ♡ 버튼으로 저장해보세요.
+      </div>
+    `;
+    return;
+  }
+
+  el.innerHTML = favoriteQuotes
+    .filter(index=>quotes[index])
+    .map(index=>`
+      <div class="saved-quote">
+        <div class="saved-quote-text">
+          “${escapeHTML(quotes[index].text)}”
+        </div>
+        <div class="saved-quote-author">
+          — ${escapeHTML(quotes[index].author)}<br>
+          《${escapeHTML(quotes[index].work)}》
+        </div>
+        <div class="saved-quote-bottom">
+          <button class="btn btn-danger" onclick="removeSavedQuote(${index})">
+            ♡ 저장 해제
+          </button>
+        </div>
+      </div>
+    `).join("");
+}
+
+/* =========================================
+   2. STORAGE
+========================================= */
+
+const STORAGE_KEY = "my_little_planner_v1";
+
+const defaultCategories = [
+  {id:"personal",name:"개인 일정",emoji:"😽",color:"#e9ddff"},
+  {id:"meeting",name:"약속",emoji:"💗",color:"#ffe0ec"},
+  {id:"exam",name:"시험",emoji:"📚",color:"#dcecff"},
+  {id:"school",name:"학교",emoji:"🎓",color:"#dcf5eb"},
+  {id:"etc",name:"기타",emoji:"⭐",color:"#fff0c9"}
+];
+
+function uid(){
+  if(window.crypto && crypto.randomUUID){
+    return crypto.randomUUID();
+  }
+  return Date.now().toString(36)+Math.random().toString(36).slice(2);
+}
+
+function loadData(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+    if(saved && typeof saved==="object"){
+      return {
+        tasks:Array.isArray(saved.tasks)?saved.tasks:[],
+        events:Array.isArray(saved.events)?saved.events:[],
+        memos:Array.isArray(saved.memos)?saved.memos:[],
+        categories:Array.isArray(saved.categories)&&saved.categories.length
+          ?saved.categories
+          :structuredClone(defaultCategories)
+      };
+    }
+  }catch(e){
+    console.error(e);
+  }
+
+  return {
+    tasks:[],
+    events:[],
+    memos:[],
+    categories:structuredClone(defaultCategories)
+  };
+}
+
+let data = loadData();
+
+function persist(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+  }catch(e){
+    console.error(e);
+    toast("저장에 실패했어요.");
+  }
+}
+
+/* =========================================
+   3. DATE
+========================================= */
+
+function localDate(date){
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,"0");
+  const d = String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
+
+function dateFromString(value){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(value||""))return null;
+
+  const [y,m,d] = value.split("-").map(Number);
+  const date = new Date(y,m-1,d);
+
+  if(
+    date.getFullYear()!==y ||
+    date.getMonth()!==m-1 ||
+    date.getDate()!==d
+  )return null;
+
+  return date;
+}
+
+function formatDate(value){
+  const d = dateFromString(value);
+  if(!d)return "날짜 없음";
+
+  return d.toLocaleDateString("ko-KR",{
+    year:"numeric",
+    month:"long",
+    day:"numeric",
+    weekday:"long"
+  });
+}
+
+function shortDate(value){
+  const d = dateFromString(value);
+  if(!d)return "";
+  return `${d.getMonth()+1}월 ${d.getDate()}일`;
+}
+
+function formatTime(value){
+  if(!value)return "종일";
+
+  const [h,m] = value.split(":").map(Number);
+  if(!Number.isFinite(h)||!Number.isFinite(m))return value;
+
+  const period = h<12?"오전":"오후";
+  const hour = h%12||12;
+
+  return `${period} ${hour}:${String(m).padStart(2,"0")}`;
+}
+
+let today = new Date();
+let viewYear = today.getFullYear();
+let viewMonth = today.getMonth();
+let selectedDate = localDate(today);
+
+function updateTodayText(){
+  document.getElementById("todayText").textContent =
+    "☀️ "+formatDate(localDate(new Date()));
+}
+
+/* =========================================
+   4. NAVIGATION
+========================================= */
+
+function showPage(page){
+  document.querySelectorAll(".page").forEach(el=>{
+    el.classList.remove("active");
+  });
+
+  document.getElementById("page-"+page).classList.add("active");
+
+  document.querySelectorAll(".menu button").forEach(el=>{
+    el.classList.toggle("active",el.dataset.page===page);
+  });
+
+  // 핵심 수정: 홈에서만 Petit Bonheur 표시
+  document.getElementById("sidebarQuote").classList.toggle(
+    "hidden",
+    page!=="dashboard"
+  );
+
+  window.scrollTo({top:0,behavior:"smooth"});
+  renderAll();
+}
+
+/* =========================================
+   5. CATEGORY
+========================================= */
+
+let editingCategoryId = null;
+
+function getCategory(id){
+  return data.categories.find(c=>c.id===id)||
+    data.categories[0]||
+    {id:"fallback",name:"기타",emoji:"⭐",color:"#e9ddff"};
+}
+
+function getCategoryStyle(category){
+  return `background:${category.color};color:#51476b;`;
+}
+
+function renderCategoryOptions(){
+  const select = document.getElementById("eventCategory");
+  const previous = select.value;
+
+  select.innerHTML = data.categories.map(c=>`
+    <option value="${escapeHTML(c.id)}">
+      ${escapeHTML(c.emoji)} ${escapeHTML(c.name)}
+    </option>
+  `).join("");
+
+  if(data.categories.some(c=>c.id===previous)){
+    select.value = previous;
+  }
+}
+
+function openCategoryManager(){
+  renderCategoryList();
+  showModal("categoryModal");
+}
+
+function renderCategoryList(){
+  const el = document.getElementById("categoryList");
+
+  el.innerHTML = data.categories.map(c=>`
+    <div class="category-item">
+      <div class="category-preview" style="${getCategoryStyle(c)}">
+        ${escapeHTML(c.emoji)}
+        <span>${escapeHTML(c.name)}</span>
+      </div>
+      <button class="icon-button" onclick="editCategory('${c.id}')" aria-label="수정">✎</button>
+      <button class="icon-button" onclick="deleteCategory('${c.id}')" aria-label="삭제">×</button>
+    </div>
+  `).join("");
+}
+
+function editCategory(id){
+  const c = data.categories.find(x=>x.id===id);
+  if(!c)return;
+
+  editingCategoryId = id;
+
+  document.getElementById("categoryEditorTitle").textContent =
+    "✎ 카테고리 수정";
+
+  document.getElementById("categoryEmoji").value = c.emoji;
+  document.getElementById("categoryName").value = c.name;
+  document.getElementById("categoryColor").value = c.color;
+}
+
+function resetCategoryEditor(){
+  editingCategoryId = null;
+
+  document.getElementById("categoryEditorTitle").textContent =
+    "＋ 새 카테고리";
+
+  document.getElementById("categoryEmoji").value = "";
+  document.getElementById("categoryName").value = "";
+  document.getElementById("categoryColor").value = "#e9ddff";
+}
+
+function saveCategory(){
+  const emoji = document.getElementById("categoryEmoji").value.trim();
+  const name = document.getElementById("categoryName").value.trim();
+  const color = document.getElementById("categoryColor").value;
+
+  if(!emoji||!name){
+    toast("이모지와 이름을 입력해주세요.");
+    return;
+  }
+
+  if(editingCategoryId){
+    const c = data.categories.find(x=>x.id===editingCategoryId);
+    if(c)Object.assign(c,{emoji,name,color});
+  }else{
+    data.categories.push({id:uid(),emoji,name,color});
+  }
+
+  persist();
+  resetCategoryEditor();
+  renderCategoryList();
+  renderCategoryOptions();
+  renderAll();
+  toast("카테고리를 저장했어요! 🎨");
+}
+
+function deleteCategory(id){
+  if(data.categories.length<=1){
+    toast("카테고리는 최소 1개 필요해요.");
+    return;
+  }
+
+  if(!confirm("이 카테고리를 삭제할까요?"))return;
+
+  const replacement = data.categories.find(c=>c.id!==id);
+
+  data.events.forEach(e=>{
+    if(e.categoryId===id)e.categoryId=replacement.id;
+  });
+
+  data.categories = data.categories.filter(c=>c.id!==id);
+
+  persist();
+  resetCategoryEditor();
+  renderCategoryList();
+  renderCategoryOptions();
+  renderAll();
+}
+
+/* =========================================
+   6. CALENDAR
+========================================= */
+
+function changeMonth(amount){
+  const d = new Date(viewYear,viewMonth+amount,1);
+  viewYear = d.getFullYear();
+  viewMonth = d.getMonth();
+  renderCalendars();
+}
+
+function goToday(){
+  const now = new Date();
+  viewYear = now.getFullYear();
+  viewMonth = now.getMonth();
+  selectedDate = localDate(now);
+  renderAll();
+}
+
+function selectDate(date){
+  selectedDate = date;
+
+  const d = dateFromString(date);
+  if(d){
+    viewYear = d.getFullYear();
+    viewMonth = d.getMonth();
+  }
+
+  renderCalendars();
+}
+
+function getCalendarItems(date){
+  const events = data.events
+    .filter(e=>e.date===date)
+    .map(e=>({...e,type:"event"}));
+
+  const tasks = data.tasks
+    .filter(t=>t.date===date&&t.sync)
+    .map(t=>({...t,type:"task"}));
+
+  return [...events,...tasks].sort((a,b)=>
+    (a.time||"99:99").localeCompare(b.time||"99:99")
+  );
+}
+
+function calendarHTML(large=false){
+  const firstDay = new Date(viewYear,viewMonth,1).getDay();
+  const lastDate = new Date(viewYear,viewMonth+1,0).getDate();
+  const previousLast = new Date(viewYear,viewMonth,0).getDate();
+  const totalCells = Math.ceil((firstDay+lastDate)/7)*7;
+
+  let days = "";
+
+  for(let i=0;i<totalCells;i++){
+    let date;
+    let day;
+    let other = false;
+
+    if(i<firstDay){
+      day = previousLast-firstDay+i+1;
+      date = new Date(viewYear,viewMonth-1,day);
+      other = true;
+    }else if(i>=firstDay+lastDate){
+      day = i-firstDay-lastDate+1;
+      date = new Date(viewYear,viewMonth+1,day);
+      other = true;
+    }else{
+      day = i-firstDay+1;
+      date = new Date(viewYear,viewMonth,day);
+    }
+
+    const dateString = localDate(date);
+    const items = getCalendarItems(dateString);
+
+    const isToday = dateString===localDate(new Date());
+    const isSelected = dateString===selectedDate;
+
+    const classes = [
+      "day",
+      other?"other":"",
+      isToday?"today":"",
+      isSelected?"selected":""
+    ].join(" ");
+
+    const limit = large?4:3;
+
+    const eventHTML = items.slice(0,limit).map(item=>{
+      if(item.type==="task"){
+        return `
+          <span class="day-event"
+            style="background:${item.done?"#ffe0ec":"#dcecff"};color:#51476b">
+            ${item.done?"✓":"☑️"} ${escapeHTML(item.title)}
+          </span>
+        `;
+      }
+
+      const category = getCategory(item.categoryId);
+
+      return `
+        <span class="day-event" style="${getCategoryStyle(category)}">
+          ${escapeHTML(category.emoji)} ${escapeHTML(item.title)}
+        </span>
+      `;
+    }).join("");
+
+    days += `
+      <button
+        class="${classes}"
+        data-date="${dateString}"
+        onclick="selectDate(this.dataset.date)"
+        aria-label="${formatDate(dateString)}"
+        aria-pressed="${isSelected}"
+      >
+        <div class="day-number">${day}</div>
+        <div class="day-events">
+          ${eventHTML}
+          ${items.length>limit
+            ?`<span class="day-more">+${items.length-limit}개 더</span>`
+            :""}
+        </div>
+      </button>
+    `;
+  }
+
+  return `
+    <div class="calendar card ${large?"large":""}">
+      <div class="calendar-top">
+        <div class="calendar-month">${viewYear}년 ${viewMonth+1}월</div>
+        <div class="calendar-nav">
+          <button onclick="changeMonth(-1)">‹</button>
+          <button onclick="goToday()">오늘</button>
+          <button onclick="changeMonth(1)">›</button>
+        </div>
+      </div>
+
+      <div class="weekdays">
+        <div class="weekday">일</div>
+        <div class="weekday">월</div>
+        <div class="weekday">화</div>
+        <div class="weekday">수</div>
+        <div class="weekday">목</div>
+        <div class="weekday">금</div>
+        <div class="weekday">토</div>
+      </div>
+
+      <div class="calendar-days">${days}</div>
+
+      <div class="calendar-bottom">
+        ${data.categories.map(c=>`
+          <span>${escapeHTML(c.emoji)} ${escapeHTML(c.name)}</span>
+        `).join("")}
+        <span>☑️ 할 일</span>
+      </div>
+    </div>
+  `;
+}
+
+function selectedHTML(){
+  const items = getCalendarItems(selectedDate);
+
+  let content = "";
+
+  if(!items.length){
+    content = `
+      <div class="empty">
+        이 날짜에는 등록된 일정이 없어요. 🌷
+      </div>
+    `;
+  }else{
+    content = items.map(item=>{
+      const isTask = item.type==="task";
+      const category = isTask?null:getCategory(item.categoryId);
+
+      return `
+        <div class="selected-item">
+          <div class="selected-item-info">
+            <div class="selected-item-title">
+              ${isTask?"☑️":escapeHTML(category.emoji)}
+              ${escapeHTML(item.title)}
+            </div>
+            <div class="selected-item-time">
+              ${isTask?"할 일":formatTime(item.time)}
+            </div>
+          </div>
+
+          <span class="tag"
+            style="${isTask
+              ?"background:#dcecff;color:#51476b"
+              :getCategoryStyle(category)}">
+            ${isTask?(item.done?"완료":"할 일"):escapeHTML(category.name)}
+          </span>
+
+          <button class="icon-button"
+            onclick="${isTask?`editTask('${item.id}')`:`editEvent('${item.id}')`}"
+            aria-label="수정">✎</button>
+
+          <button class="icon-button"
+            onclick="${isTask?`deleteTask('${item.id}')`:`deleteEvent('${item.id}')`}"
+            aria-label="삭제">×</button>
+        </div>
+      `;
+    }).join("");
+  }
+
+  return `
+    <div class="selected-card card">
+      <div class="section-head">
+        <div class="selected-date">💜 ${formatDate(selectedDate)}</div>
+        <button class="btn btn-light" onclick="openEventModal()">＋ 추가</button>
+      </div>
+      <div class="selected-list">${content}</div>
+    </div>
+  `;
+}
+
+function renderCalendars(){
+  document.getElementById("dashboardCalendar").innerHTML = calendarHTML(false);
+  document.getElementById("fullCalendar").innerHTML = calendarHTML(true);
+  document.getElementById("dashboardSelected").innerHTML = selectedHTML();
+  document.getElementById("fullSelected").innerHTML = selectedHTML();
+}
+
+/* =========================================
+   7. TASKS
+========================================= */
+
+let editingTaskId = null;
+let todoFilter = "all";
+
+function openTaskModal(item=null){
+  editingTaskId = item?item.id:null;
+
+  document.getElementById("taskModalTitle").textContent =
+    item?"☑️ 할 일 수정":"☑️ 새 할 일";
+
+  document.getElementById("taskTitle").value = item?item.title:"";
+  document.getElementById("taskDate").value = item?item.date||"":"";
+  document.getElementById("taskNote").value = item?item.note||"":"";
+  document.getElementById("taskSync").checked = item?!!item.sync:false;
+
+  showModal("taskModal");
+}
+
+function saveTask(){
+  const title = document.getElementById("taskTitle").value.trim();
+  const date = document.getElementById("taskDate").value;
+  const note = document.getElementById("taskNote").value.trim();
+  const sync = document.getElementById("taskSync").checked;
+
+  if(!title){
+    toast("할 일을 입력해주세요.");
+    return;
+  }
+
+  if(sync&&!date){
+    toast("달력에 표시하려면 날짜를 선택해주세요.");
+    return;
+  }
+
+  if(editingTaskId){
+    const item = data.tasks.find(x=>x.id===editingTaskId);
+
+    if(item){
+      Object.assign(item,{title,date,note,sync});
+
+      if(item.eventId){
+        const event = data.events.find(e=>e.id===item.eventId);
+
+        if(event){
+          event.title = title;
+          event.date = date||event.date;
+          event.note = note;
+        }
+      }
+    }
+  }else{
+    data.tasks.push({
+      id:uid(),
+      title,date,note,sync,
+      done:false,
+      createdAt:Date.now()
+    });
+  }
+
+  persist();
+  renderAll();
+  closeModal("taskModal");
+  toast("할 일을 저장했어요! 💜");
+}
+
+function quickAddTodo(inputId){
+  const input = document.getElementById(inputId);
+  const title = input.value.trim();
+
+  if(!title)return;
+
+  data.tasks.push({
+    id:uid(),
+    title,
+    date:"",
+    note:"",
+    sync:false,
+    done:false,
+    createdAt:Date.now()
+  });
+
+  input.value = "";
+  persist();
+  renderAll();
+  toast("할 일이 추가됐어요! ✨");
+}
+
+function editTask(id){
+  const item = data.tasks.find(x=>x.id===id);
+  if(item)openTaskModal(item);
+}
+
+function toggleTask(id){
+  const item = data.tasks.find(x=>x.id===id);
+  if(!item)return;
+
+  item.done = !item.done;
+
+  persist();
+  renderAll();
+
+  if(item.done)toast("잘했어! 하나 완료했어 🎉");
+}
+
+function deleteTask(id){
+  const task = data.tasks.find(t=>t.id===id);
+  if(!task)return;
+  if(!confirm("이 할 일을 삭제할까요?"))return;
+
+  if(task.eventId){
+    const event = data.events.find(e=>e.id===task.eventId);
+    if(event)event.taskId=null;
+  }
+
+  data.tasks = data.tasks.filter(t=>t.id!==id);
+  persist();
+  renderAll();
+}
+
+function setTodoFilter(filter){
+  todoFilter = filter;
+  renderTasks();
+}
+
+function tasksHTML(inputId){
+  let tasks = [...data.tasks];
+
+  if(todoFilter==="active")tasks=tasks.filter(x=>!x.done);
+  if(todoFilter==="done")tasks=tasks.filter(x=>x.done);
+
+  tasks.sort((a,b)=>{
+    if(a.done!==b.done)return Number(a.done)-Number(b.done);
+
+    const da = a.date||"9999-12-31";
+    const db = b.date||"9999-12-31";
+
+    if(da!==db)return da.localeCompare(db);
+    return (b.createdAt||0)-(a.createdAt||0);
+  });
+
+  const list = tasks.length
+    ?tasks.map(t=>`
+      <div class="todo-item">
+        <button
+          class="check ${t.done?"done":""}"
+          onclick="toggleTask('${t.id}')"
+          aria-label="${t.done?"완료 취소":"완료 처리"}"
+          aria-pressed="${!!t.done}"
+        >${t.done?"✓":""}</button>
+
+        <div class="todo-content">
+          <div class="todo-text ${t.done?"done":""}">
+            ${escapeHTML(t.title)}
+          </div>
+          <div class="todo-meta">
+            ${t.date?`<span>📅 ${shortDate(t.date)}</span>`:""}
+            ${t.sync?`<span>· 달력 연동</span>`:""}
+            ${t.eventId?`<span>· 일정 연동</span>`:""}
+            ${t.note?`<span>· 📝 메모 있음</span>`:""}
+          </div>
+        </div>
+
+        <button class="icon-button" onclick="editTask('${t.id}')" aria-label="수정">✎</button>
+        <button class="icon-button" onclick="deleteTask('${t.id}')" aria-label="삭제">×</button>
+      </div>
+    `).join("")
+    :`
+      <div class="empty">
+        아직 할 일이 없어요.<br>
+        새로운 할 일을 추가해보세요! 🧸
+      </div>
+    `;
+
+  return `
+    <div class="todo-card card">
+      <div class="todo-input-row">
+        <input
+          id="${inputId}"
+          placeholder="할 일을 빠르게 입력해보세요..."
+          onkeydown="if(event.key==='Enter')quickAddTodo('${inputId}')"
+        >
+        <button class="btn btn-primary" onclick="quickAddTodo('${inputId}')">＋</button>
+      </div>
+
+      <div class="todo-filters">
+        <button class="filter ${todoFilter==="all"?"active":""}"
+          onclick="setTodoFilter('all')">전체</button>
+        <button class="filter ${todoFilter==="active"?"active":""}"
+          onclick="setTodoFilter('active')">진행 중</button>
+        <button class="filter ${todoFilter==="done"?"active":""}"
+          onclick="setTodoFilter('done')">완료</button>
+      </div>
+
+      ${list}
+    </div>
+  `;
+}
+
+function renderTasks(){
+  document.getElementById("dashboardTasks").innerHTML =
+    tasksHTML("quickTodoDashboard");
+
+  document.getElementById("fullTasks").innerHTML =
+    tasksHTML("quickTodoFull");
+}
+
+/* =========================================
+   8. TODAY
+========================================= */
+
+function renderToday(){
+  const todayString = localDate(new Date());
+  const tasks = data.tasks.filter(t=>t.date===todayString);
+  const completed = tasks.filter(t=>t.done).length;
+
+  document.getElementById("todayProgress").textContent =
+    `${completed} / ${tasks.length} 완료`;
+
+  document.getElementById("todayProgressFill").style.width =
+    (tasks.length?completed/tasks.length*100:0)+"%";
+
+  const el = document.getElementById("todayList");
+
+  if(!tasks.length){
+    el.innerHTML = `
+      <div class="empty" style="padding:10px">
+        오늘 등록된 할 일이 없어요. 🌷<br>
+        오늘의 작은 목표를 만들어보세요!
+      </div>
+    `;
+    return;
+  }
+
+  el.innerHTML = tasks.map(t=>`
+    <div class="today-item ${t.done?"done":""}">
+      <button
+        class="check ${t.done?"done":""}"
+        onclick="toggleTask('${t.id}')"
+        aria-label="${t.done?"완료 취소":"완료 처리"}"
+        aria-pressed="${!!t.done}"
+      >${t.done?"✓":""}</button>
+
+      <span>${escapeHTML(t.title)}</span>
+
+      <button class="icon-button" onclick="editTask('${t.id}')" aria-label="수정">✎</button>
+    </div>
+  `).join("");
+}
+
+/* =========================================
+   9. EVENTS
+========================================= */
+
+let editingEventId = null;
+
+function openEventModal(item=null){
+  editingEventId = item?item.id:null;
+  renderCategoryOptions();
+
+  document.getElementById("eventModalTitle").textContent =
+    item?"🗓️ 일정 수정":"🗓️ 새 일정";
+
+  document.getElementById("eventTitle").value = item?item.title:"";
+  document.getElementById("eventDate").value = item?item.date:selectedDate;
+  document.getElementById("eventTime").value = item?item.time||"":"";
+  document.getElementById("eventNote").value = item?item.note||"":"";
+  document.getElementById("eventSync").checked = item?!!item.taskId:false;
+
+  if(item&&item.categoryId&&
+     data.categories.some(c=>c.id===item.categoryId)){
+    document.getElementById("eventCategory").value=item.categoryId;
+  }
+
+  showModal("eventModal");
+}
+
+function saveEvent(){
+  const title = document.getElementById("eventTitle").value.trim();
+  const date = document.getElementById("eventDate").value;
+  const time = document.getElementById("eventTime").value;
+  const note = document.getElementById("eventNote").value.trim();
+  const categoryId = document.getElementById("eventCategory").value;
+  const sync = document.getElementById("eventSync").checked;
+
+  if(!title||!date){
+    toast("일정 이름과 날짜를 입력해주세요.");
+    return;
+  }
+
+  let event;
+
+  if(editingEventId){
+    event = data.events.find(x=>x.id===editingEventId);
+    if(!event)return;
+    Object.assign(event,{title,date,time,note,categoryId});
+  }else{
+    event = {
+      id:uid(),title,date,time,note,categoryId,
+      taskId:null,createdAt:Date.now()
+    };
+    data.events.push(event);
+  }
+
+  if(sync){
+    let task = data.tasks.find(t=>t.id===event.taskId);
+
+    if(!task){
+      task = {
+        id:uid(),title,date,note,
+        sync:false,done:false,
+        eventId:event.id,createdAt:Date.now()
+      };
+      data.tasks.push(task);
+      event.taskId=task.id;
+    }else{
+      Object.assign(task,{title,date,note,eventId:event.id});
+    }
+  }else if(event.taskId){
+    data.tasks = data.tasks.filter(t=>t.id!==event.taskId);
+    event.taskId=null;
+  }
+
+  selectedDate=date;
+
+  const d = dateFromString(date);
+  if(d){
+    viewYear=d.getFullYear();
+    viewMonth=d.getMonth();
+  }
+
+  persist();
+  renderAll();
+  closeModal("eventModal");
+  toast("일정을 저장했어요! 🌷");
+}
+
+function editEvent(id){
+  const item = data.events.find(x=>x.id===id);
+  if(item)openEventModal(item);
+}
+
+function deleteEvent(id){
+  if(!confirm("이 일정을 삭제할까요?"))return;
+
+  const event = data.events.find(x=>x.id===id);
+
+  if(event&&event.taskId){
+    data.tasks=data.tasks.filter(t=>t.id!==event.taskId);
+  }
+
+  data.events=data.events.filter(x=>x.id!==id);
+  persist();
+  renderAll();
+}
+
+/* =========================================
+   10. UPCOMING
+========================================= */
+
+function getUpcoming(){
+  const todayString=localDate(new Date());
+
+  const events=data.events
+    .filter(e=>e.date>=todayString)
+    .map(e=>({...e,type:"event"}));
+
+  const tasks=data.tasks
+    .filter(t=>
+      t.date&&
+      t.date>=todayString&&
+      !t.done&&
+      !t.eventId
+    )
+    .map(t=>({...t,type:"task"}));
+
+  return [...events,...tasks].sort((a,b)=>{
+    const dateCompare=a.date.localeCompare(b.date);
+    if(dateCompare!==0)return dateCompare;
+    return (a.time||"99:99").localeCompare(b.time||"99:99");
+  });
+}
+
+function upcomingHTML(limit=null){
+  const upcoming=getUpcoming();
+  const items=limit?upcoming.slice(0,limit):upcoming;
+
+  if(!items.length){
+    return `
+      <div class="upcoming-card card">
+        <div class="empty">
+          다가오는 일정이 없어요.<br>
+          새로운 계획을 세워보세요! 🌸
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="upcoming-card card">
+      ${items.map(item=>{
+        const d=dateFromString(item.date);
+        const isTask=item.type==="task";
+        const category=isTask?null:getCategory(item.categoryId);
+
+        return `
+          <div class="upcoming-item">
+            <div class="upcoming-date">
+              <strong>${d.getDate()}</strong>
+              <span>${d.getMonth()+1}월</span>
+            </div>
+
+            <div class="upcoming-info">
+              <div class="upcoming-name">
+                ${isTask?"☑️":escapeHTML(category.emoji)}
+                ${escapeHTML(item.title)}
+              </div>
+              <div class="upcoming-time">
+                ${isTask?"할 일":formatTime(item.time)}
+                ${!isTask?` · ${escapeHTML(category.name)}`:""}
+              </div>
+            </div>
+
+            <button class="icon-button"
+              onclick="${isTask?`editTask('${item.id}')`:`editEvent('${item.id}')`}"
+              aria-label="수정">✎</button>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+function renderUpcoming(){
+  document.getElementById("upcomingCount").textContent =
+    getUpcoming().length;
+
+  document.getElementById("dashboardUpcoming").innerHTML =
+    upcomingHTML(7);
+
+  document.getElementById("fullUpcoming").innerHTML =
+    upcomingHTML();
+}
+
+/* =========================================
+   11. MEMOS
+========================================= */
+
+let editingMemoId=null;
+
+function openMemoModal(item=null){
+  editingMemoId=item?item.id:null;
+
+  document.getElementById("memoModalTitle").textContent =
+    item?"💌 메모 수정":"💌 새 메모";
+
+  document.getElementById("memoTitle").value=item?item.title:"";
+  document.getElementById("memoText").value=item?item.text:"";
+  document.getElementById("memoColor").value=item?item.color:"purple";
+
+  showModal("memoModal");
+}
+
+function saveMemo(){
+  const title=document.getElementById("memoTitle").value.trim();
+  const text=document.getElementById("memoText").value.trim();
+  const color=document.getElementById("memoColor").value;
+
+  if(!title&&!text){
+    toast("메모 내용을 입력해주세요.");
+    return;
+  }
+
+  if(editingMemoId){
+    const item=data.memos.find(x=>x.id===editingMemoId);
+
+    if(item){
+      Object.assign(item,{
+        title:title||"제목 없는 메모",
+        text,color,updatedAt:Date.now()
+      });
+    }
+  }else{
+    data.memos.push({
+      id:uid(),
+      title:title||"제목 없는 메모",
+      text,color,
+      createdAt:Date.now(),
+      updatedAt:Date.now()
+    });
+  }
+
+  persist();
+  renderAll();
+  closeModal("memoModal");
+  toast("메모를 저장했어요! 💌");
+}
+
+function editMemo(id){
+  const item=data.memos.find(x=>x.id===id);
+  if(item)openMemoModal(item);
+}
+
+function deleteMemo(id){
+  if(!confirm("이 메모를 삭제할까요?"))return;
+  data.memos=data.memos.filter(x=>x.id!==id);
+  persist();
+  renderAll();
+}
+
+function memosHTML(){
+  if(!data.memos.length){
+    return `
+      <div class="card empty" style="grid-column:1/-1">
+        아직 작성한 메모가 없어요.<br>
+        오늘 떠오른 생각을 기록해보세요! 💌
+      </div>
+    `;
+  }
+
+  const allowedColors=["purple","blue","pink","yellow","mint"];
+
+  return [...data.memos]
+    .sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0))
+    .map(m=>{
+      const color=allowedColors.includes(m.color)?m.color:"purple";
+      const date=new Date(m.updatedAt||m.createdAt||Date.now());
+
+      return `
+        <div class="memo-card ${color}"
+          onclick="editMemo('${m.id}')"
+          role="button"
+          tabindex="0"
+          onkeydown="if(event.key==='Enter')editMemo('${m.id}')">
+
+          <button class="memo-delete"
+            onclick="event.stopPropagation();deleteMemo('${m.id}')"
+            aria-label="메모 삭제">×</button>
+
+          <div class="memo-title">${escapeHTML(m.title)}</div>
+
+          <div class="memo-text">
+            ${escapeHTML(m.text.length>150?m.text.slice(0,150)+"...":m.text)}
+          </div>
+
+          <div class="memo-date">${date.toLocaleDateString("ko-KR")}</div>
+        </div>
+      `;
+    }).join("");
+}
+
+function renderMemos(){
+  document.getElementById("memoCount").textContent=data.memos.length;
+  document.getElementById("dashboardMemos").innerHTML=memosHTML();
+  document.getElementById("fullMemos").innerHTML=memosHTML();
+}
+
+/* =========================================
+   12. UTIL
+========================================= */
+
+function showModal(id){
+  document.getElementById(id).classList.add("show");
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove("show");
+}
+
+document.querySelectorAll(".modal-bg").forEach(modal=>{
+  modal.addEventListener("click",e=>{
+    if(e.target===modal)modal.classList.remove("show");
+  });
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    document.querySelectorAll(".modal-bg.show")
+      .forEach(x=>x.classList.remove("show"));
+  }
+});
+
+function escapeHTML(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+let toastTimer;
+
+function toast(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer=setTimeout(()=>{
+    el.classList.remove("show");
+  },2300);
+}
+
+function renderStats(){
+  document.getElementById("totalTasks").textContent=data.tasks.length;
+  document.getElementById("completedTasks").textContent=
+    data.tasks.filter(t=>t.done).length;
+}
+
+function renderAll(){
+  renderStats();
+  renderToday();
+  renderCalendars();
+  renderTasks();
+  renderUpcoming();
+  renderMemos();
+}
+
+/* =========================================
+   13. INITIAL
+========================================= */
+
+renderCategoryOptions();
+renderAll();
+updateTodayText();
+updateDailyQuote(true);
+
+/* 처음 실행 시 홈에만 명언 표시 */
+document.getElementById("sidebarQuote").classList.remove("hidden");
+
+/* 날짜 변경 감지 */
+setInterval(()=>{
+  const previousDay=currentQuoteDay;
+
+  updateDailyQuote();
+
+  if(previousDay!==currentQuoteDay){
+    updateTodayText();
+    renderAll();
+  }
+},10000);
+
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden){
+    updateDailyQuote();
+    updateTodayText();
+    renderAll();
+  }
+});
+
+</script>
+
+</body>
+</html>
